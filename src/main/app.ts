@@ -1,10 +1,24 @@
-//will run program
-"use strict";
-const appConfig = require("../app-config.json");
+/**
+ * TODO:
+ *    1. include the stemming algorithm
+ *    2. tests!!!
+ *    3. readme file
+ *        explain what it does, any assumptions
+ *    4. maybe produce output files??
+ *    5. see about the 'tabbed' stop word
+ *    6. maybe rename folders
+ *    7. remove ALL non-alphabetical text (better way to do it)
+ *    8. refactor
+ *    9. print out 20 most commonly occuring terms (that are not stop words?) might as well include both and explain assumption
+ */
 
-import { WordCountObject } from "../models";
-import { Parser } from "../parser";
-import { LocalFileReader } from "../reader/reader";
+
+'use strict';
+const appConfig = require('../app-config.json');
+
+import { WordCountObject } from '../models';
+import { Parser } from '../parser';
+import { LocalFileReader } from '../reader/reader';
 
 const fr = new LocalFileReader();
 const parser = new Parser();
