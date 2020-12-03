@@ -34,22 +34,34 @@ textFromFile = fr.readFile(appConfig.textFilePath);
 stopWords = fr.readFile(appConfig.stopWordsFilePath);
 
 textFromFileArray = parser.parseTextWordsBasedSpace(textFromFile);
-console.log(textFromFileArray)
+//console.log(textFromFileArray)
 stopWordsArray = parser.parseStopWordsBasedOnLineBreak(stopWords);
 
 //filter out crap that is in each string (comma's, quotes, periods, etc...)
 //NEED TO: REMOVE ALL NON-ALPHABETICAL TEXT
 textFromFileArray = parser.normalizeWords(textFromFileArray);
+stopWordsArray = parser.normalizeWords(stopWordsArray);
 
 let extractedWordsArray: WordCountObject[] = parser.extractWordsFromText(stopWordsArray, textFromFileArray);
+let allWordCountArray: WordCountObject[] = parser.countAllWordsFromText(textFromFileArray)
 //removed words from text//
+// let mostPrevelantWords = 
+//   parser.showTwentyMostPrevelantWords(
+//     parser.orderArrayOnCountDesc(extractedWordsArray)
+//     );
+
+console.log(allWordCountArray)
 
 let mostPrevelantWords = 
   parser.showTwentyMostPrevelantWords(
-    parser.orderArrayOnCountDesc(extractedWordsArray)
+    parser.orderArrayOnCountDesc(allWordCountArray)
     );
+// mostPrevelantWords.map(word => {
+//   word.word = word.word.replace(/\W/g, '');
+// })
 
-console.log(mostPrevelantWords);
+//console.log(mostPrevelantWords);
+
 //if textFromFileArray string exists in stopWord array
   //REMOVE IT FROM textFromFileArray
   //ADD IT TO removedWordsArray (if it doesn't exist already)
