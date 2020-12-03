@@ -10,6 +10,7 @@
  *    7. remove ALL non-alphabetical text (better way to do it)
  *    8. refactor
  *    9. print out 20 most commonly occuring terms (that are not stop words?) might as well include both and explain assumption
+ *    10. get npm to work
  */
 
 
