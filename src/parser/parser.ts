@@ -16,6 +16,7 @@ export class Parser {
     textFromFileArray.forEach(word => {
       word = word.replace(',', '');
       word = word.replace('.', '');
+      word = word.replace('\r', '');
       word = word.toLowerCase().trim();
     });
     return textFromFileArray;

@@ -13,6 +13,7 @@
  *    10. get npm to work
  */
 
+ //FOR INSTALL: REDO, had to reinstall glovally typescript and ts-node. FIX
 
 'use strict';
 const appConfig = require('../app-config.json');
@@ -33,6 +34,7 @@ textFromFile = fr.readFile(appConfig.textFilePath);
 stopWords = fr.readFile(appConfig.stopWordsFilePath);
 
 textFromFileArray = parser.parseTextWordsBasedSpace(textFromFile);
+console.log(textFromFileArray)
 stopWordsArray = parser.parseStopWordsBasedOnLineBreak(stopWords);
 
 //filter out crap that is in each string (comma's, quotes, periods, etc...)

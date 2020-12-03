@@ -10,8 +10,8 @@ export class LocalFileReader {
       return fs.readFileSync(path).toString();
     }
     catch(err){
-      return ''
       console.log('error: ', err);
+      return ''
     }
     
   }
