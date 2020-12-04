@@ -11,6 +11,8 @@
  *  Tests to prove
  *  Readme
  * 
+ * NOTE: (for readme) Frequency is computed using the real word, not the stemmed word version within the document
+ * 
  * TODO:
  *    --1. include the stemming algorithm
  *    2. tests!!!
@@ -31,7 +33,8 @@
 'use strict';
 const appConfig = require('../app-config.json');
 
-import { WordCountObject } from '../models';
+import { IWordCountObject } from '../models';
+import { IStemmerObject } from '../models/stemmer.object';
 import { Parser } from '../parser';
 import { LocalFileReader } from '../reader/reader';
 
@@ -42,6 +45,7 @@ let textFromFile: string
 let stopWords: string
 let textFromFileArray: string[] = [];
 let stopWordsArray: string[] = [];
+let stemmertextFromFileArray: IStemmerObject[] = [];
 
 function buildStopWordsStringArray(stopWord: string): string[] {
   return parser.normalizeWordStringArray(
@@ -55,25 +59,23 @@ function buildAllTextWordsStringArray(textFromFile: string): string[] {
     );
 }
 
-function buildTwentyMostPrevalantExistingWords(stemmertextFromFileArray: string[], stopWordsArray:string[]): WordCountObject[] {
-  return parser.showTwentyMostPrevalantWords(
-    parser.orderArrayOnCountDesc(
+function buildTwentyMostPrevalantExistingWords(stemmertextFromFileArray: IStemmerObject[], stopWordsArray:string[]): IWordCountObject[] {
+  // return parser.showTwentyMostPrevalantWords(
+    return parser.orderArrayOnCountDesc(
       parser.countAllWordsFromText(stemmertextFromFileArray, stopWordsArray)
       )
-    );
+    // );
 }
 
 function run(): void {
 
   textFromFile = fr.readFile(appConfig.textFilePath);
   stopWords = fr.readFile(appConfig.stopWordsFilePath);
-  
-  //normalize and remove anything non-alphabetical
+
   stopWordsArray = buildStopWordsStringArray(stopWords);
   textFromFileArray = buildAllTextWordsStringArray(textFromFile);
-  
-  //stemmer stuff (NEEDS WORK)
-  let stemmertextFromFileArray: string[] = textFromFileArray//parser.convertStemmerBaseWord(textFromFileArray)
+
+  stemmertextFromFileArray = parser.convertStemmerBaseWord(textFromFileArray);
   
   let mostPrevalantExistingWords = buildTwentyMostPrevalantExistingWords(stemmertextFromFileArray, stopWordsArray);
   
