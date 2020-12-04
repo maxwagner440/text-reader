@@ -1,4 +1,5 @@
-export interface WordCountObject {
-  word: string;
+import { IStemmerObject } from "./stemmer.object";
+
+export interface IWordCountObject extends IStemmerObject {
   count: number;
 }
