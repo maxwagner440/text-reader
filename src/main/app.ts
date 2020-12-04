@@ -36,11 +36,12 @@ stopWords = fr.readFile(appConfig.stopWordsFilePath);
 textFromFileArray = parser.parseTextWordsBasedSpace(textFromFile);
 stopWordsArray = parser.parseStopWordsBasedOnLineBreak(stopWords);
 
-textFromFileArray = parser.normalizeWords(textFromFileArray); // probably dont need this?
+let stemmertextFromFileArray: string[] = parser.convertStemmerBaseWord(textFromFileArray)
+//textFromFileArray = parser.normalizeWords(textFromFileArray); // probably dont need this?
 stopWordsArray = parser.normalizeWords(stopWordsArray);
 
-let extractedWordsArray: WordCountObject[] = parser.extractWordsFromText(stopWordsArray, textFromFileArray);
-let allWordCountArray: WordCountObject[] = parser.countAllWordsFromText(textFromFileArray)
+let extractedWordsArray: WordCountObject[] = parser.extractWordsFromText(stopWordsArray, stemmertextFromFileArray);
+let allWordCountArray: WordCountObject[] = parser.countAllWordsFromText(stemmertextFromFileArray)
 
 let mostPrevelantExistingWords = 
   parser.showTwentyMostPrevelantWords(

@@ -1,3 +1,7 @@
+'use strict';
+
+const stemmer = require('porter-stemmer').stemmer
+
 import { WordCountObject, constants } from "../models";
 
 export class Parser {
@@ -7,12 +11,12 @@ export class Parser {
   parseTextWordsBasedSpace(parseWordsString: string): string[] {
     var filteredWordsArray: string[] = []
 
-    var parsedWordsArray = parseWordsString.trim().split(' ');
+    var parsedWordsArray = parseWordsString.trim().split(constants.space);
     if(parsedWordsArray){ 
       parsedWordsArray.map(word => {
         if(word.toLowerCase().match(constants.onlyAlph)) {
           filteredWordsArray.push(
-            word.toLowerCase().replace(constants.notAlph, '')
+            word.toLowerCase().replace(constants.notAlph, constants.empty)
           );
         }
       });
@@ -36,7 +40,7 @@ export class Parser {
       word = word.replace(constants.period, constants.empty);
       word = word.replace(constants.allNonAlph, constants.empty);
       word = word.replace(constants.newLineChar, constants.empty);
-      // word = word.replace(constants.backRN, constants.empty);
+      word = word.replace(constants.backRN, constants.empty);
       word = word.replace(constants.backR, constants.empty)
       word = word.replace(constants.backN, constants.empty)
       word = word.replace(constants.backT, constants.empty)
@@ -49,34 +53,12 @@ export class Parser {
 
   extractWordsFromText(stopWordsArray: string[], textFromFileArray: string[]): WordCountObject[]{
     let extractedWordsArray: WordCountObject[] = [];
-    //console.log(stopWordsArray)
     stopWordsArray.forEach((stopWord) => {
 
       textFromFileArray.forEach(word => {
 
-        // console.log(word.toLowerCase())
-        //console.log(stopWord.length)
-        //console.log('herererere')
-        let exists = false;
-
         if(stopWord.toLowerCase().trim() === word.toLowerCase()) {
-          // extractedWordsArray = this.buildExtractedWordsArray(extractedWordsArray, word.toLowerCase());
-
-          extractedWordsArray.forEach(extractedWordObject => {
-            //if it exists in extractedWordsArray//
-            if(extractedWordObject.word.toLowerCase().trim() === stopWord.toLowerCase()){
-              ++extractedWordObject.count
-              exists = true;
-            } 
-          });
-          if(exists === false) {
-              // //if doesn't exist, add with count of 1//
-              extractedWordsArray.push({
-              word: stopWord.toLowerCase(),
-              count: constants.one
-            });
-          }
-
+          extractedWordsArray = this.buildExtractedWordsArray(extractedWordsArray, word.toLowerCase());
         }
       });
     });
@@ -94,7 +76,24 @@ export class Parser {
     return totalCountArray;
   }
 
-  buildExtractedWordsArray(initialArray: WordCountObject[], stopWord: string): WordCountObject[] {
+  orderArrayOnCountDesc(extractedWordsArray: WordCountObject[]): WordCountObject[] {
+    return extractedWordsArray.sort((a,b) => {
+      return b.count - a.count;
+    });
+  }
+
+  showTwentyMostPrevelantWords(extractedWordsArray: WordCountObject[]): WordCountObject[] {
+    return extractedWordsArray.slice(constants.sliceBeginZero, constants.sliceEndTwenty);
+  }
+
+  convertStemmerBaseWord(stringArray: string[] ) {
+    stringArray.forEach(str => {
+      str =  stemmer(str)
+    })
+    return stringArray;
+  }
+
+  private buildExtractedWordsArray(initialArray: WordCountObject[], stopWord: string): WordCountObject[] {
     let exists = false;
     initialArray.forEach(extractedWordObject => {
       //if it exists in extractedWordsArray//
@@ -112,15 +111,5 @@ export class Parser {
     }
 
     return initialArray;
-  }
-
-  orderArrayOnCountDesc(extractedWordsArray: WordCountObject[]): WordCountObject[] {
-    return extractedWordsArray.sort((a,b) => {
-      return b.count - a.count;
-    });
-  }
-
-  showTwentyMostPrevelantWords(extractedWordsArray: WordCountObject[]): WordCountObject[] {
-    return extractedWordsArray.slice(constants.sliceBeginZero, constants.sliceEndTwenty);
   }
 }
