@@ -1,7 +1,9 @@
 
 describe('parser', () => {
   describe('parseTextWordsBasedSpace()', () => {
-
+    it('should test', () => {
+      expect(4).toBe(4)
+    })
   });
   
   describe('parseStopWordsBasedOnLineBreak()', () => {
