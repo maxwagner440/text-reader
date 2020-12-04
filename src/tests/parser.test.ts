@@ -19,7 +19,7 @@ describe('parser', () => {
   });
   
   describe('parseStopWordsBasedOnLineBreak()', () => {
-
+    
   });
 
   describe('normalizeWords()', () => {

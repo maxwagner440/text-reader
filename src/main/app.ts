@@ -11,7 +11,7 @@
  *  Tests to prove
  *  Readme
  * 
- * NOTE: (for readme) Frequency is computed using the real word, not the stemmed word version within the document
+ *  NOTE: (for readme) Frequency is computed using the stem word, not the real word version within the document
  * 
  * TODO:
  *    --1. include the stemming algorithm
@@ -26,6 +26,8 @@
  *    --9. print out 20 most commonly occuring terms (that are not stop words?) might as well include both and explain assumption
  *    10. get npm to work
  *    --11. remove stop words from prevalant array
+ * 
+ *  
  */
 
  //FOR INSTALL: REDO, had to reinstall glovally typescript and ts-node. FIX
