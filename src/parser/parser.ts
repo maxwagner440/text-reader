@@ -8,7 +8,7 @@ export class Parser {
   
   constructor() {}
 
-  parseTextWordsBasedSpace(parseWordsString: string): string[] {
+  parseTextWordsBasedOnNonAlphabetical(parseWordsString: string): string[] {
     return parseWordsString.trim().split(constants.notAlph);
   }
 
@@ -28,10 +28,6 @@ export class Parser {
     });
 
     return filteredWordsArray;
-  }
-
-  normalizeWordString(word: string): string {
-    return word.toLowerCase().replace(constants.notAlph, constants.empty);
   }
 
   normalizeWordStringArray(textFromFileArray: string[]): string[] {
@@ -64,7 +60,7 @@ export class Parser {
     let stemmerArray: IStemmerObject[] = [];
 
     stringArray.map(str => {
-      if(stemmer(str).toLowerCase().length > 1 || stemmer(str).toLowerCase() === 'a') {
+      if(stemmer(str).toLowerCase().length > constants.one || stemmer(str).toLowerCase() === constants.a) {
         stemmerArray.push({
           word: str,
           stemmerWord: stemmer(str).toLowerCase()
@@ -75,11 +71,14 @@ export class Parser {
     return stemmerArray;
   }
 
+  private normalizeWordString(word: string): string {
+    return word.toLowerCase().replace(constants.notAlph, constants.empty);
+  }
+
   private buildExtractedWordsArrayWithCount(initialArray: IWordCountObject[], stopWordArray: string[], stemmerObject: IStemmerObject): IWordCountObject[] {
     let exists = false;
 
     if(!stopWordArray.find(stopWord => stopWord === stemmerObject.word)){
-
       initialArray.forEach(extractedWordObject => {
         if( extractedWordObject.stemmerWord === stemmerObject.stemmerWord){
           ++extractedWordObject.count
@@ -94,7 +93,6 @@ export class Parser {
             count: constants.one
           });
       }
-  
     }
 
     return initialArray;

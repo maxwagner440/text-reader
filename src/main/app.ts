@@ -38,7 +38,7 @@ const appConfig = require('../app-config.json');
 import { IWordCountObject } from '../models';
 import { IStemmerObject } from '../models/stemmer.object';
 import { Parser } from '../parser';
-import { LocalFileReader } from '../reader/reader';
+import { LocalFileReader } from '../reader';
 
 const fr = new LocalFileReader();
 const parser = new Parser();
@@ -57,16 +57,16 @@ function buildStopWordsStringArray(stopWord: string): string[] {
 
 function buildAllTextWordsStringArray(textFromFile: string): string[] {
   return parser.filterForWordsWithinStringArray(
-    parser.parseTextWordsBasedSpace(textFromFile)
+    parser.parseTextWordsBasedOnNonAlphabetical(textFromFile)
     );
 }
 
 function buildTwentyMostPrevalantExistingWords(stemmertextFromFileArray: IStemmerObject[], stopWordsArray:string[]): IWordCountObject[] {
-  // return parser.showTwentyMostPrevalantWords(
-    return parser.orderArrayOnCountDesc(
+  return parser.showTwentyMostPrevalantWords(
+    parser.orderArrayOnCountDesc(
       parser.countAllWordsFromText(stemmertextFromFileArray, stopWordsArray)
       )
-    // );
+    );
 }
 
 function run(): void {

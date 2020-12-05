@@ -12,6 +12,7 @@ export const constants = {
     empty: '',
     space: ' ',
     one: 1,
+    a: 'a',
     sliceBeginZero: 0,
     sliceEndTwenty: 20,
     onlyAlph: /^[a-zA-Z]+$/,
