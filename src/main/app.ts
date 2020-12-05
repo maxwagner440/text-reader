@@ -64,7 +64,7 @@ function buildAllTextWordsStringArray(textFromFile: string): string[] {
 function buildTwentyMostPrevalantExistingWords(stemmertextFromFileArray: IStemmerObject[], stopWordsArray:string[]): IWordCountObject[] {
   return parser.showTwentyMostPrevalantWords(
     parser.orderArrayOnCountDesc(
-      parser.countAllWordsFromText(stemmertextFromFileArray, stopWordsArray)
+      parser.countAllWordsFromTextThatAreNotStopWords(stemmertextFromFileArray, stopWordsArray)
       )
     );
 }
