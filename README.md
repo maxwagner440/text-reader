@@ -34,6 +34,9 @@ Stemming: "punching", "punched" and "puncher" all equate to "punch" when stemmed
  
 ### To Run:
 
+Note: The application pulls text files from the /examples folder. You can add files here and then update the app-config.json file with the text file name. The stop words file reference is "stopWordsFilePath" and the text file reference is "textFilePath".
+
+
 ```
 cd text-reader/src/main (where the app.ts file lives)
 npx ts-node app.ts
