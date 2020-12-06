@@ -15,7 +15,7 @@
  * 
  * TODO:
  *    --1. include the stemming algorithm
- *    2. tests!!!
+ *    --2. tests!!!
  *    3. readme file
  *        explain what it does, any assumptions
  *    NO (put in assumptions) ?4. maybe produce output files??
@@ -74,14 +74,19 @@ function run(): void {
   textFromFile = fr.readFile(appConfig.textFilePath);
   stopWords = fr.readFile(appConfig.stopWordsFilePath);
 
-  stopWordsArray = buildStopWordsStringArray(stopWords);
-  textFromFileArray = buildAllTextWordsStringArray(textFromFile);
-
-  stemmertextFromFileArray = parser.convertStemmerBaseWord(textFromFileArray);
+  if(textFromFile.length > 0) {
+    stopWordsArray = buildStopWordsStringArray(stopWords);
+    textFromFileArray = buildAllTextWordsStringArray(textFromFile);
   
-  let mostPrevalantExistingWords = buildTwentyMostPrevalantExistingWords(stemmertextFromFileArray, stopWordsArray);
+    stemmertextFromFileArray = parser.convertStemmerBaseWord(textFromFileArray);
+    
+    let mostPrevalantExistingWords = buildTwentyMostPrevalantExistingWords(stemmertextFromFileArray, stopWordsArray);
+    
+    console.log(mostPrevalantExistingWords);
+  } else {
+    console.log('There was no text to parse inside the file');
+  }
   
-  console.log(mostPrevalantExistingWords);
 }
 
 run();

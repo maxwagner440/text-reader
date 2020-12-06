@@ -1,3 +1,5 @@
+import { IWordCountObject } from "../models";
+import { IStemmerObject } from "../models/stemmer.object";
 import { Parser } from "../parser";
 
 describe('parser', () => {
@@ -49,6 +51,14 @@ describe('parser', () => {
 
       expect(result.length).toBe(8);
     });
+
+    it('should return an single string array', () => {
+      const testString = ''
+      const result = parser.parseTextWordsBasedOnNonAlphabetical(testString);
+
+      expect(result.length).toBe(1);
+    });
+
   });
   
   describe('parseStopWordsBasedOnLineBreak()', () => {
@@ -78,6 +88,13 @@ describe('parser', () => {
       const result = parser.parseStopWordsBasedOnLineBreak(testString);
   
       expect(result.length).toBe(3);  
+    });
+
+    it('should parse into one string', () => {
+      const testString = '';
+      const result = parser.parseStopWordsBasedOnLineBreak(testString);
+  
+      expect(result.length).toBe(1);  
     });
   });
 
@@ -143,29 +160,213 @@ describe('parser', () => {
       expect(result[0]).toBe('heyguy'); 
       expect(result[1]).toBe('thedudeabides');  
     });
-  });
 
-  describe('extractWordsFromText()', () => {
-    it('should ', () => {
-
+    it('should return an empty array', () => {
+      const testStringArray: string[] = [];
+      const result = parser.normalizeWordStringArray(testStringArray);
+  
+      expect(result.length).toBe(0);  
     });
   });
 
-  describe('countAllWordsFromText()', () => {
-    it('should ', () => {
+  describe('countAllWordsFromTextThatAreNotStopWords()', () => {
+    it('should remove a stop word from result', () => {
+      const stopWordArray = ['dude']
+      const textArray = [{
+        word: 'government',
+        stemmerWord: 'govern'
+       }, 
+       {
+        word: 'dude',
+        stemmerWord: 'dud'
+       },
+       {
+        word: 'punching',
+        stemmerWord: 'punch'
+       }
+      ];
 
+      const result = parser.countAllWordsFromTextThatAreNotStopWords(textArray, stopWordArray)
+
+      expect(result.length).toBe(2);
+    });
+
+    it('should count non stop words from result based on the stemmer word', () => {
+      const stopWordArray = ['dude']
+      const textArray = [{
+        word: 'government',
+        stemmerWord: 'govern'
+       }, 
+       {
+        word: 'dude',
+        stemmerWord: 'dud'
+       },
+       {
+        word: 'punching',
+        stemmerWord: 'punch'
+       },
+       {
+        word: 'punched',
+        stemmerWord: 'punch'
+       },
+      ];
+
+      const result = parser.countAllWordsFromTextThatAreNotStopWords(textArray, stopWordArray)
+
+      expect(result.length).toBe(2);
+      result.map((word) => {
+        if(word.stemmerWord === 'punch'){
+          expect(word.count).toBe(2)
+        }
+      });
+    });
+
+    it('should not count stop words', () => {
+      const stopWordArray = ['dude']
+      const textArray = [{
+        word: 'dude',
+        stemmerWord: 'dud'
+       }, 
+       {
+        word: 'dude',
+        stemmerWord: 'dud'
+       },
+       {
+        word: 'dude',
+        stemmerWord: 'dud'
+       },
+       {
+        word: 'dude',
+        stemmerWord: 'dud'
+       },
+      ];
+
+      const result = parser.countAllWordsFromTextThatAreNotStopWords(textArray, stopWordArray)
+
+      expect(result.length).toBe(0);
     });
   });
 
   describe('orderArrayOnCountDesc()', () => {
-    it('should ', () => {
+    it('should return an ordered array based on count', () => {
+      const testArray = [
+        {
+          word: 'one',
+          stemmerWord: 'one',
+          count: 1
+        },
+        {
+          word: 'two',
+          stemmerWord: 'two',
+          count: 2
+        },
+        {
+          word: 'three',
+          stemmerWord: 'three',
+          count: 3
+        },
+        {
+          word: 'four',
+          stemmerWord: 'four',
+          count: 4
+        }
+      ]
+      const result = parser.orderArrayOnCountDesc(testArray);
 
+      expect(result[0].count).toBe(4);
+      expect(result[1].count).toBe(3);
+      expect(result[2].count).toBe(2);
+      expect(result[3].count).toBe(1);
+    });
+
+    it('should return an ordered array based on count with some counts being the same', () => {
+      const testArray = [
+        {
+          word: 'one',
+          stemmerWord: 'one',
+          count: 1
+        },
+        {
+          word: 'two',
+          stemmerWord: 'two',
+          count: 1
+        },
+        {
+          word: 'all',
+          stemmerWord: 'all',
+          count: 1
+        },
+        {
+          word: 'three',
+          stemmerWord: 'three',
+          count: 3
+        },
+        {
+          word: 'four',
+          stemmerWord: 'four',
+          count: 4
+        }
+      ]
+      const result = parser.orderArrayOnCountDesc(testArray);
+
+      expect(result[0].word).toBe('four');
+      expect(result[1].word).toBe('three');
+      expect(result[2].word).toBe('all');
+      expect(result[3].word).toBe('one');
+      expect(result[4].word).toBe('two');
+    });
+
+    it('should return an empty result', () => {
+      const stopWordArray = ['dude']
+      const textArray: IStemmerObject[] = [];
+
+      const result = parser.countAllWordsFromTextThatAreNotStopWords(textArray, stopWordArray)
+
+      expect(result.length).toBe(0);
     });
   });
 
   describe('showTwentyMostPrevelantWords()', () => {
-    it('should ', () => {
+    it('should return twenty results from a twenty four object array', () => {
+      const wordObject = {
+        word: 'four',
+        stemmerWord: 'four',
+        count: 4
+      }
 
+      var totalArray = []
+      for(var i = 0; i < 24; i++){
+        totalArray.push(wordObject);
+      }
+
+      var result = parser.showTwentyMostPrevalantWords(totalArray);
+
+      expect(result.length).toBe(20);
+    });
+
+    it('should return ten results from a ten object array', () => {
+      const wordObject = {
+        word: 'four',
+        stemmerWord: 'four',
+        count: 4
+      }
+
+      var totalArray = []
+      for(var i = 0; i < 10; i++){
+        totalArray.push(wordObject);
+      }
+
+      var result = parser.showTwentyMostPrevalantWords(totalArray);
+
+      expect(result.length).toBe(10);
+    });
+
+    it('should return empty array from an empty object array', () => {
+      var totalArray: IWordCountObject[] = [];
+
+      var result = parser.showTwentyMostPrevalantWords(totalArray);
+
+      expect(result.length).toBe(0);
     });
   });
 
@@ -203,6 +404,14 @@ describe('parser', () => {
 
       var result = parser.convertStemmerBaseWord(test);
       expect(result[0].word).toEqual(test[0]);
+    });
+
+    it('should return empty array', ()=> {
+      const test = [''];
+
+      var result = parser.convertStemmerBaseWord(test);
+
+      expect(result.length).toEqual(0);
     });
   });
 });

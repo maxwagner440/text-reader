@@ -36,7 +36,7 @@ export class Parser {
     });
   }
 
-  countAllWordsFromText(textFromFileArray: IStemmerObject[], stopWordArray: string[]): IWordCountObject[]{
+  countAllWordsFromTextThatAreNotStopWords(textFromFileArray: IStemmerObject[], stopWordArray: string[]): IWordCountObject[]{
     let totalCountArray: IWordCountObject[] = [];
 
     textFromFileArray.forEach(stemWordObject => {
@@ -48,7 +48,7 @@ export class Parser {
 
   orderArrayOnCountDesc(extractedWordsArray: IWordCountObject[]): IWordCountObject[] {
     return extractedWordsArray.sort((a,b) => {
-      return b.count - a.count;
+      return this.multiCompare(b.count,a.count) || this.multiCompare(a.word,b.word)
     });
   }
 
@@ -73,6 +73,17 @@ export class Parser {
 
   private normalizeWordString(word: string): string {
     return word.toLowerCase().replace(constants.notAlph, constants.empty);
+  }
+
+  private multiCompare(a: any, b: any) {
+    if (a > b) {
+      return +1;
+    } 
+    if (a < b) {
+      return -1;
+    } 
+
+    return 0;
   }
 
   private buildExtractedWordsArrayWithCount(initialArray: IWordCountObject[], stopWordArray: string[], stemmerObject: IStemmerObject): IWordCountObject[] {
