@@ -1,6 +1,7 @@
 # Text Reader
 
-This is a console application that reads from a text file, parses based on several requirements and prints out the twenty most frequently occuring strings. The application also reads from a "stop words" text file, parses these words, and then removes these words from the original text file read. After the application filters on stop words, it then computes the frequency of how many times each word occurs in the text file and then prints out the twenty most occurring words. It also uses a stemming algorithm that takes every word and creates a stemmed version of that word.
+This is a console application that reads from a text file, parses based on several requirements and prints out the twenty most frequently occuring strings. The application also reads from a "stop words" text file, parses these words, and then removes these words from the original text file read. After the application filters on stop words, it then computes the frequency of how many times each word occurs in the text file and then prints out the twenty most occurring words. The application also uses a stemming algorithm that takes every word and creates a stemmed version of that word. The console log will actually print the word, the stemmed word version and the frequency it occurs in the text.
+
 
 ```
 Stemming: "punching", "punched" and "puncher" all equate to "punch" when stemmed.
