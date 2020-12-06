@@ -1,9 +1,10 @@
 # Text Reader
 
-This is a console application that reads text from a text file, parses based on several requirements and prints out the twenty most frequently occuring strings. The application also reads from a "stop words" text file, parses these words, and then removes these words from the original text file read. After the application filters on stop words, it then computes the frequency of how many times each word occurs in the text file and then prints out the twenty most occuring word. It also uses a stemming algorithm that takes every word and creates a stemmed version of that word.
+This is a console application that reads from a text file, parses based on several requirements and prints out the twenty most frequently occuring strings. The application also reads from a "stop words" text file, parses these words, and then removes these words from the original text file read. After the application filters on stop words, it then computes the frequency of how many times each word occurs in the text file and then prints out the twenty most occurring words. It also uses a stemming algorithm that takes every word and creates a stemmed version of that word.
 
-For example if "punching", "punched" and "puncher" all existed in the file, their stemmed word would all be "punch".
-
+```
+Stemming: "punching", "punched" and "puncher" all equate to "punch" when stemmed.
+```
 
 ## Assumptions Made:
   - The stop words file provided words separated by new line characters. After parsing these words, the application then normalizes the word by removing any non-alphabetic characters.
@@ -15,18 +16,18 @@ For example if "punching", "punched" and "puncher" all existed in the file, thei
   
  
 ### Prerequisites:
-  - Have to have [Typescript](https://www.typescriptlang.org/) installed
-  - Have to have [NodeJS](https://nodejs.org/en/download/) installed
-  - (May have to install npx and ts-node after NodeJS)
+  - [Typescript](https://www.typescriptlang.org/) installed
+  - [NodeJS](https://nodejs.org/en/download/) installed
+  - After NodeJS has successfully been install, you can use npm to install these packages:
       - [npx](https://www.npmjs.com/package/npx)
       - [ts-node](https://www.npmjs.com/package/ts-node)
       
-      
+    
 ### To Install:
  - clone the project
  
  ```
- cd text-reader/src/ (where the package.json file lives)
+ cd text-reader/src (where the package.json file lives)
  npm install
  ```
  
@@ -42,6 +43,6 @@ npx ts-node app.ts
 ### To Test: 
 
 ```
-cd text-reader/src
+cd text-reader/src (where the package.json file lives)
 npm test
 ```
