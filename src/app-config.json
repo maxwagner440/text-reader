@@ -1,0 +1,4 @@
+{
+  "stopWordsFilePath":"../examples/stopwords.txt",
+  "textFilePath":"../examples/Text1.txt"
+}
