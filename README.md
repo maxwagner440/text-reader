@@ -32,9 +32,9 @@ Stemming: "punching", "punched" and "puncher" all equate to "punch" when stemmed
       
     
 ### To Install:
- - clone the project
  
  ```
+ git clone https://github.com/maxwagner440/text-reader.git (one way to clone the project)
  cd text-reader/src (where the package.json file lives)
  npm install
  ```
