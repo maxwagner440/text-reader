@@ -59,3 +59,11 @@ npm test
 3. Attach this job to an SFTP/FTP that would process specific folders and files.
 4. Run through all files within a folder structure indicated.
 5. Interact with the file more in which the script actually removes bad characters and stop words while printing a new file.
+6. Build in error notification system that alerts both users and developers when a file failed to process and why.
+
+## Things to improve on:
+
+1. Naming and always refactoring.
+2. Decentralizing the parser file and allowing for a Parser and a Normalizer class.
+3. Splitting up the tests to file the Parser and Normalizer class'.
+4. Error Handling.
