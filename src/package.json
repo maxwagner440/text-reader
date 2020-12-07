@@ -1,0 +1,41 @@
+{
+  "name": "text-reader",
+  "version": "1.0.0",
+  "description": "text parser",
+  "main": "index.js",
+  "exports": "./es/index.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "npx ts-node main/app.ts",
+    "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json",
+    "coverage": "nyc -r text -e .ts -x \"tests/*.test.ts\" npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxwagner440/text-reader.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxwagner440/text-reader/issues"
+  },
+  "homepage": "https://github.com/maxwagner440/text-reader#readme",
+  "dependencies": {
+    "@types/node": "14.0.13",
+    "eslint": "^7.14.0",
+    "esm": "^3.2.25",
+    "porter-stemmer": "^0.9.1",
+    "tslint": "^6.1.3"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.6.2",
+    "@types/node": "14.0.13",
+    "jasmine": "^3.6.3",
+    "nyc": "^15.1.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^4.1.2"
+  }
+}
