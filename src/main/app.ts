@@ -1,8 +1,7 @@
 'use strict';
 const appConfig = require('../app-config.json');
 
-import { IWordCountObject } from '../models';
-import { IStemmerObject } from '../models/stemmer.object';
+import { IWordCountObject, IStemmerObject } from '../models';
 import { Parser } from '../parser';
 import { LocalFileReader } from '../reader';
 
