@@ -50,3 +50,12 @@ npx ts-node app.ts
 cd text-reader/src (where the package.json file lives)
 npm test
 ```
+
+
+## Places where this could go:
+
+1. Build out a UI that allows for an upload of files and displays the output to the user
+2. Create a cron or pm2 job that runs this script on an interval daily to automate. 
+3. Attach this job to an SFTP/FTP that would process specific folders and files.
+4. Run through all files within a folder structure indicated.
+5. Interact with the file more in which the script actually removes bad characters and stop words while printing a new file.
