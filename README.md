@@ -4,6 +4,13 @@ This is a console application that reads from a text file, parses based on sever
 
 
 ```
+Object: 
+ { 
+    word: 'powers', 
+    stemmerWord: 'power', 
+    count: 11 
+  }
+ 
 Stemming: "punching", "punched" and "puncher" all equate to "punch" when stemmed.
 ```
 
