@@ -67,3 +67,4 @@ npm test
 2. Decentralizing the parser file and allowing for a Parser and a Normalizer class.
 3. Splitting up the tests to file the Parser and Normalizer class'.
 4. Error Handling.
+5. NPM installs and running (could not get the npx command to run with a script from package.json based on file structure)
